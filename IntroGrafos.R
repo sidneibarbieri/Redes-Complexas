@@ -147,32 +147,45 @@ distances(g1)
 
 coreness(g1, mode="all")
 
-
 g2 <- simplify(g2, remove.multiple = F, remove.loops = T)
+
 
 ### Lista de Arestas
 as_edgelist(g2, names=T)
 
+
 ### Matriz de Adjacências 
-as_adjacency_matrix(g2, attr="weight")
+madj <- as_adjacency_matrix(g2, attr="weight")
+
 
 ### Matriz de Caminhos Mínimos
 distances(g1)
+
 
 ### Grau dos Vértices
 degree(g2)
 grau <- degree(g2)
 as.data.frame(grau)
 
+V(g2)$grau <- 0
+gr1 <- sum(madj[,1])
+gr2 <- sum(madj[,2])
+gr3 <- sum(madj[,3])
+gr4 <- sum(madj[,4])
+gr5 <- sum(madj[,5])
+
+V(g2)$grau <- c(gr1, gr2, gr3, gr4, gr5)
+V(g2)$grau
+
 
 ### Coeficiente de aglomeração
 V(g2)$coef <- 0
 
-c1 = as.double((2*1)/(grau[[1]])*(grau[[1]]-1))
-c2 = as.double((2*1)/(grau[[2]])*(grau[[2]]-1))
-c3 = as.double((2*1)/(grau[[3]])*(grau[[3]]-1))
-c4 = as.double((2*0)/(grau[[4]])*(grau[[4]]-1))
-c5 = as.double((2*0)/(grau[[5]])*(grau[[5]]-1))
+c1 = as.double((2*1)/(gr1)*(gr1-1))
+c2 = as.double((2*1)/(gr2)*(gr2-1))
+c3 = as.double((2*1)/(gr3)*(gr3-1))
+c4 = as.double((2*0)/(gr4)*(gr4-1))
+c5 = as.double((2*0)/(gr5)*(gr5-1))
 
 V(g2)$coef <- c(c1, c2, c3, c4, c5)
 V(g2)$coef

@@ -1,0 +1,21 @@
+{
+    "collab_server" : "",
+    "contents" : "## Notebook Grafos Aula 01\n\n### Pacotes\ninstall.packages(\"dplyr\")\ninstall.packages(\"plyr\")\ninstall.packages(\"igraph\")\ninstall.packages(\"timeordered\")\n\n### Bibliotecas\nlibrary(dplyr)\nlibrary(plyr)\nlibrary(igraph)\nlibrary(timeordered)\n\n### Consciência situacional\nsetwd('/Users/sidneibarbieri/Documents/Grafos/IntroGrafos/')\ngetwd()\ng1 = read_graph(\"./G1.net\", format = c(\"pajek\"))\ng1\n\ng2 <- graph( edges = c(1,2, \n                       1,3, \n                       2,3, \n                       3,4, \n                       4,5), n=5, directed=F)\nplot(g2)\nplot(g2, vertex.size=40, vertex.color=\"orange\", edge.color=\"darkblue\", edge.width=2, vertex.label.font=5)\n\n\n### Plotar o Grafo G1\nplot(g1)\nplot(g1, vertex.size=40, vertex.color=\"orange\", edge.color=\"darkblue\", edge.width=2, vertex.label.font=5)\n\nnames = V(g1)$id\nnames\n\nplot(g1, vertex.label=names, \n     vertex.size=40, \n     vertex.color=\"yellow\", \n     edge.color=\"darkblue\", \n     edge.width=2, \n     vertex.label.font=5)\n\n### Listar Vértices\nV(g1)\nV(g2)\n\n###Nomes dos Vérices\nV(g1)$name\nvertex_attr(g1)\n\nV(g2)$name\nV(g2)$name <- c(\"1\", \"2\", \"3\", \"4\", \"5\")\nvertex_attr(g2)\n\n\n### Listar Arestas\nE(g1)\n\n#### Peso das Arestas\nE(g1)$weight\n\nedge_attr(g2)\nE(g2)$weight <- 1\nedge_attr(g2)\n\n\n### Matriz de Incidências\ng1[]\n\n\n### Conexões de um Vértice\n#### Vértice 1\ng1[1,]\n\n#### Vértice 5\ng1[5,]\n\n\n### Distribuição de Graus\nd1 = degree.distribution(g1, cumulative=FALSE)\nlen = length(d1)\n\npng(filename=\"G1_graus.png\", height=500, width=500, bg=\"white\")\nbarplot(d1, main=\"Distribuição de Graus\", xlab=\"Graus\", ylab=\"PDF\", names.arg=c(0:(len-1)))\n\ndev.off()\n\n### Proximidade dos Vértices\ncl = closeness(g1)\ncl\n\n\n### Vértice com maior grau\ncl_max= max(cl)\ncl_max\n\nvindex_max = which(closeness(g1) == cl_max)\nvindex_max\n\nvmax=V(g1)[vindex_max]$id\nvmax\n\n\n### Vértice com menor grau\ncl_min= min(cl)\ncl_min\n\nvindex_min = which(closeness(g1) == cl_min)\nvindex_min\n\nvmin=V(g1)[vindex_min]$id\nvmin\n\n\n### Máxima distância mínima entre Vértices\nb = betweenness(g1)\nbmax=max(b)\nbmax\n\nbindex_max = which(betweenness(g1) == bmax)\nbindex_max\n\nbmax=V(g1)[bindex_max]$id\nbmax\n\nbmin= min(b)\nbmin\n\nbindex_min = which(betweenness(g1) == bmin)\nbindex_min\n\nbmin=V(g1)[bindex_min]$id\nbmin\n\n\n### Arestas\nvcount(g1)\necount(g1)\nE(g1)\neb = edge.betweenness(g1)\neb\n\n\n### Caminho mais curto\ndistances(g1)\n\ncoreness(g1, mode=\"all\")\n\ng2 <- simplify(g2, remove.multiple = F, remove.loops = T)\n\n\n### Lista de Arestas\nas_edgelist(g2, names=T)\n\n\n### Matriz de Adjacências \nmadj <- as_adjacency_matrix(g2, attr=\"weight\")\n\n\n### Matriz de Caminhos Mínimos\ndistances(g1)\n\n\n### Grau dos Vértices\ndegree(g2)\ngrau <- degree(g2)\nas.data.frame(grau)\n\nV(g2)$grau <- 0\ngr1 <- sum(madj[,1])\ngr2 <- sum(madj[,2])\ngr3 <- sum(madj[,3])\ngr4 <- sum(madj[,4])\ngr5 <- sum(madj[,5])\n\nV(g2)$grau <- c(gr1, gr2, gr3, gr4, gr5)\nV(g2)$grau\n\n\n### Coeficiente de aglomeração\nV(g2)$coef <- 0\n\nc1 = as.double((2*1)/(gr1)*(gr1-1))\nc2 = as.double((2*1)/(gr2)*(gr2-1))\nc3 = as.double((2*1)/(gr3)*(gr3-1))\nc4 = as.double((2*0)/(gr4)*(gr4-1))\nc5 = as.double((2*0)/(gr5)*(gr5-1))\n\nV(g2)$coef <- c(c1, c2, c3, c4, c5)\nV(g2)$coef\n\n\n### Mínimo caminho médio\nmcm <- distances(g1)\nmcm <- as.data.frame(mcm)\n\nl1 <- sum(mcm[1,])/(5-1)\nl2 <- sum(mcm[2,])/(5-1)\nl3 <- sum(mcm[3,])/(5-1)\nl4 <- sum(mcm[4,])/(5-1)\nl5 <- sum(mcm[5,])/(5-1)\n\naverage.path.length(g2, directed = FALSE)\n\n\n### Diâmetro\ndiameter(g2)\n",
+    "created" : 1508709009525.000,
+    "dirty" : false,
+    "encoding" : "UTF-8",
+    "folds" : "",
+    "hash" : "3308320991",
+    "id" : "3ED10187",
+    "lastKnownWriteTime" : 1508974564,
+    "last_content_update" : 1508974564523,
+    "path" : "~/Documents/Grafos/IntroGrafos/IntroGrafos.R",
+    "project_path" : "IntroGrafos.R",
+    "properties" : {
+        "tempName" : "Untitled1"
+    },
+    "relative_order" : 1,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_source"
+}
