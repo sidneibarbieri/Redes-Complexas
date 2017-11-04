@@ -75,9 +75,9 @@ g1 = read_graph("./G1.net", format = c("pajek"))
 g1
 ```
 
-    ## IGRAPH 0a5d59a UNW- 5 5 -- 
+    ## IGRAPH 909aae0 UNW- 5 5 -- 
     ## + attr: id (v/c), name (v/c), weight (e/n)
-    ## + edges from 0a5d59a (vertex names):
+    ## + edges from 909aae0 (vertex names):
     ## [1] 1--2 1--3 2--3 3--4 4--5
 
 ``` r
@@ -129,14 +129,14 @@ plot(g1, vertex.label=names,
 V(g1)
 ```
 
-    ## + 5/5 vertices, named, from 0a5d59a:
+    ## + 5/5 vertices, named, from 909aae0:
     ## [1] 1 2 3 4 5
 
 ``` r
 V(g2)
 ```
 
-    ## + 5/5 vertices, from 9324b0c:
+    ## + 5/5 vertices, from e319d1e:
     ## [1] 1 2 3 4 5
 
 ``` r
@@ -175,7 +175,7 @@ vertex_attr(g2)
 E(g1)
 ```
 
-    ## + 5/5 edges from 0a5d59a (vertex names):
+    ## + 5/5 edges from 909aae0 (vertex names):
     ## [1] 1--2 1--3 2--3 3--4 4--5
 
 ``` r
@@ -363,7 +363,7 @@ ecount(g1)
 E(g1)
 ```
 
-    ## + 5/5 edges from 0a5d59a (vertex names):
+    ## + 5/5 edges from 909aae0 (vertex names):
     ## [1] 1--2 1--3 2--3 3--4 4--5
 
 ``` r
@@ -459,15 +459,17 @@ V(g2)$grau
 
 ``` r
 ### Coeficiente de aglomeração
-V(g2)$coef <- 0
+V(g2)$coef <- c(0, 0, 0, 0, 0)
+V(g2)$coef <- as.double(V(g2)$coef)
 
-c1 = as.double((2*1)/(gr1)*(gr1-1))
-c2 = as.double((2*1)/(gr2)*(gr2-1))
-c3 = as.double((2*1)/(gr3)*(gr3-1))
-c4 = as.double((2*0)/(gr4)*(gr4-1))
-c5 = as.double((2*0)/(gr5)*(gr5-1))
+c1 = 2*1/gr1*(gr1-1)
+c2 = 2*1/gr2*(gr2-1)
+c3 = 2*1/gr3*(gr3-1)
+c4 = 2*0/gr4*(gr4-1)
+c5 = 2*0/gr5*(gr5-1)
 
-V(g2)$coef <- c(c1, c2, c3, c4, c5)
+V(g2)$coef <- as.double(c(c1, c2, c3, c4, c5))
+
 V(g2)$coef
 ```
 
