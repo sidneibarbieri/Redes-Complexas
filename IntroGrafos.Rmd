@@ -170,25 +170,40 @@ grau <- degree(g2)
 as.data.frame(grau)
 
 V(g2)$grau <- 0
-gr1 <- sum(madj[,1])
-gr2 <- sum(madj[,2])
-gr3 <- sum(madj[,3])
-gr4 <- sum(madj[,4])
-gr5 <- sum(madj[,5])
+k1 <- sum(madj[,1])
+k2 <- sum(madj[,2])
+k3 <- sum(madj[,3])
+k4 <- sum(madj[,4])
+k5 <- sum(madj[,5])
 
-V(g2)$grau <- c(gr1, gr2, gr3, gr4, gr5)
-V(g2)$grau
+V(g2)$grau <- c(k1, k2, k3, k4, k5)
+V(g2)$grau <- as.numeric(V(g2)$grau)
+
+
+### Vizinhos dos Vertices
+n1 <- neighbors(g2, 1)
+n2 <- neighbors(g2, 2)
+n3 <- neighbors(g2, 3)
+n4 <- neighbors(g2, 4)
+n5 <- neighbors(g2, 5)
+
+### Número de arestas entre os vizinhos
+E1 <- length(E(induced_subgraph(g2, n1)))
+E2 <- length(E(induced_subgraph(g2, n2)))
+E3 <- length(E(induced_subgraph(g2, n3)))
+E4 <- length(E(induced_subgraph(g2, n4)))
+E5 <- length(E(induced_subgraph(g2, n5)))
 
 
 ### Coeficiente de aglomeração
 V(g2)$coef <- c(0, 0, 0, 0, 0)
 V(g2)$coef <- as.double(V(g2)$coef)
 
-c1 = 2*1/gr1*(gr1-1)
-c2 = 2*1/gr2*(gr2-1)
-c3 = 2*1/gr3*(gr3-1)
-c4 = 2*0/gr4*(gr4-1)
-c5 = 2*0/gr5*(gr5-1)
+c1 = 2*E1/k1*(k1-1)
+c2 = 2*E2/k2*(k2-1)
+c3 = 2*E3/k3*(k3-1)
+c4 = 2*E4/k4*(k4-1)
+c5 = 2*E5/k5*(k5-1)
 
 V(g2)$coef <- as.double(c(c1, c2, c3, c4, c5))
 
@@ -205,7 +220,6 @@ l4 <- sum(mcm[4,])/(5-1)
 l5 <- sum(mcm[5,])/(5-1)
 
 average.path.length(g2, directed = FALSE)
-
 
 ### Diâmetro
 diameter(g2)
